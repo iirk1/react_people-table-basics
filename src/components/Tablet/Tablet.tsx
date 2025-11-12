@@ -3,6 +3,7 @@ import { Loader } from '../Loader';
 import { Person } from '../../types';
 import classNames from 'classnames';
 import { useNavigate, useParams } from 'react-router-dom';
+import { PersonLink } from '../PersonLink/PersonLink';
 
 type Props = {
   people: Person[];
@@ -94,20 +95,10 @@ export const Tablet: React.FC<Props> = ({ people, isLoader, isError }) => {
                     <td>{person.died}</td>
                     <td>
                       {motherInList ? (
-                        <a
-                          className={classNames({
-                            'has-text-danger': motherInList,
-                          })}
-                          onClick={() => {
-                            handleOnClick(motherInList.slug);
-                          }}
-                          href={`#/people/${motherInList?.slug}`}
-                        >
-                          {person.motherName !== null &&
-                          person.motherName !== undefined
-                            ? person.motherName
-                            : '-'}
-                        </a>
+                        <PersonLink
+                          handleOnClick={handleOnClick}
+                          parent={motherInList}
+                        />
                       ) : (
                         <span>
                           {person.motherName ? person.motherName : '-'}
@@ -117,17 +108,10 @@ export const Tablet: React.FC<Props> = ({ people, isLoader, isError }) => {
 
                     <td>
                       {fatherInList ? (
-                        <a
-                          onClick={() => {
-                            handleOnClick(fatherInList.slug);
-                          }}
-                          href={`#/people/${fatherInList?.slug}`}
-                        >
-                          {person.fatherName !== null &&
-                          person.fatherName !== undefined
-                            ? person.fatherName
-                            : '-'}
-                        </a>
+                        <PersonLink
+                          handleOnClick={handleOnClick}
+                          parent={fatherInList}
+                        />
                       ) : (
                         <span>
                           {person.fatherName ? person.fatherName : '-'}
